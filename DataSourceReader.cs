@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataExtractor.Csv;
+using DataExtractor.Records;
 
 namespace DataExtractor
 {
     internal static class DataSourceReader
     {
-        public static List<WarningRecord> ReadWarning(string filePath )
+        public static List<WarningRecord> ReadWarning( string filePath )
         {
-            return CsvReader<WarningRecord>.Read(filePath, "\t");
+            return Reader<WarningRecord>.Read(filePath, "\t");
         }
 
         public static List<GeneralRecord> ReadGeneral( string filePath )
         {
-            return CsvReader<GeneralRecord>.Read(filePath, ",");
+            return Reader<GeneralRecord>.Read(filePath, ",");
         }
 
         public static List<PoisoningRecord> ReadPoisoning( string filePath )
         {
-            return CsvReader<PoisoningRecord>.Read(filePath, ";");
+            return Reader<PoisoningRecord>.Read(filePath, ";");
         }
 
         

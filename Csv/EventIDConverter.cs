@@ -8,23 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace DataExtractor
+namespace DataExtractor.Csv
 {
-    internal class EventIDConverter: DefaultTypeConverter
+    internal class EventIDConverter : DefaultTypeConverter
     {
-        public override object ConvertFromString( string text, IReaderRow row, MemberMapData memberMapData )
+        public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
-            if ( text is null || string.IsNullOrEmpty(text.Trim()) ) {
+            if (text is null || string.IsNullOrEmpty(text.Trim()))
+            {
                 throw new TypeConverterException(
                 this, memberMapData, text, row.Context
                 , $"Cannot convert empty cell to EventID");
             }
             text = text.Replace(',', '.');
-            if ( double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out double number) ) {
+            if (double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out double number))
+            {
                 text = number.ToString("F0", CultureInfo.InvariantCulture);
             }
             var regex = new Regex(@"^\d{12}$");
-            if ( regex.IsMatch(text) )
+            if (regex.IsMatch(text))
                 return text;
             throw new TypeConverterException(
                 this, memberMapData, text, row.Context

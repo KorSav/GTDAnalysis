@@ -1,6 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using DataExtractor.Csv;
 
-namespace DataExtractor
+namespace DataExtractor.Records
 {
     public class PoisoningRecord
     {
