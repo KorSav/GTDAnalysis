@@ -7,20 +7,23 @@ namespace DataExtractor
     {
         public static List<WarningRecord> ReadWarning( string filePath )
         {
-            return Reader<WarningRecord>.Read(filePath, "\t");
+            return Csv.Reader<WarningRecord>.Read(filePath, "\t");
         }
 
         public static List<GeneralRecord> ReadGeneral( string filePath )
         {
-            return Reader<GeneralRecord>.Read(filePath, ",");
+            return Csv.Reader<GeneralRecord>.Read(filePath, ",");
         }
 
         public static List<PoisoningRecord> ReadPoisoning( string filePath )
         {
-            return Reader<PoisoningRecord>.Read(filePath, ";");
+            return Csv.Reader<PoisoningRecord>.Read(filePath, ";");
         }
 
-        
+        public static List<IncidentRecord> ReadIncident( string filePath )
+        {
+            return Xl.Reader.Read(filePath);
+        }
 
     }
 }
