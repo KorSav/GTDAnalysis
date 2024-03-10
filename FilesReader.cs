@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace DataExtractor
 {
-    public static class FilesReader
+    public static class FilesReader<T>
     {
-        public static List<GeneralRecord> ReadGeneral( string filePath )
+        public static List<T> Read( string filePath )
         {
-            List<GeneralRecord> res;
+            List<T> res;
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
                 ReadingExceptionOccurred = context =>
                 {
@@ -25,11 +25,10 @@ namespace DataExtractor
             };
             using var reader = new StreamReader(filePath);
             using ( var csv = new CsvReader(reader, config) ) {
-                var records = csv.GetRecords<GeneralRecord>();
+                var records = csv.GetRecords<T>();
                 res = records.ToList();
             };
             return res;
         }
-        
     }
 }

@@ -6,6 +6,7 @@ namespace DataExtractor
     public class GeneralRecord
     {
         [Name("eventid")]
+        [TypeConverter(typeof(EventIDConverter))]
         public string EventID { get; set; }
 
         [Name("iyear")]
