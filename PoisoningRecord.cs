@@ -2,7 +2,6 @@
 
 namespace DataExtractor
 {
-    [Delimiter(",")]
     public class PoisoningRecord
     {
         [Index(0)]

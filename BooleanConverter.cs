@@ -1,34 +1,33 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 
 namespace DataExtractor
 {
-    internal class EventIDConverter: DefaultTypeConverter
+    internal class BooleanConverter : DefaultTypeConverter
     {
         public override object ConvertFromString( string text, IReaderRow row, MemberMapData memberMapData )
         {
-            if ( text is null || string.IsNullOrEmpty(text.Trim()) ) {
+            if ( text is null || string.IsNullOrEmpty( text.Trim() ) ) {
                 throw new TypeConverterException(
                 this, memberMapData, text, row.Context
-                , $"Cannot convert empty cell to EventID");
+                , $"Cannot convert empty cell to boolean");
             }
             text = text.Replace(',', '.');
             if ( double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out double number) ) {
                 text = number.ToString("F0", CultureInfo.InvariantCulture);
             }
-            var regex = new Regex(@"^\d{12}$");
-            if ( regex.IsMatch(text) )
-                return text;
+            if ( text == "1" ) {
+                return true;
+            }
+            if ( text == "0" ) { 
+                return false; 
+            }
+
             throw new TypeConverterException(
                 this, memberMapData, text, row.Context
-                , $"Cannot convert {text} to EventID");
+                , $"Cannot convert {text} to boolean");
         }
     }
 }

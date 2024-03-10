@@ -9,24 +9,25 @@ using System.Threading.Tasks;
 
 namespace DataExtractor
 {
-    public static class FilesReader<T>
+    public static class CsvReader<T>
     {
-        public static List<T> Read( string filePath )
+        public static List<T> Read( string filePath, string delimeter )
         {
             List<T> res;
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
+                Delimiter = delimeter,
                 ReadingExceptionOccurred = context =>
                 {
                     if ( context.Exception is CsvHelper.TypeConversion.TypeConverterException ) {
                         return false;
                     }
                     return true;
-                }
+                },
+                MissingFieldFound = null
             };
             using var reader = new StreamReader(filePath);
             using ( var csv = new CsvReader(reader, config) ) {
-                var records = csv.GetRecords<T>();
-                res = records.ToList();
+                res = csv.GetRecords<T>().ToList();
             };
             return res;
         }

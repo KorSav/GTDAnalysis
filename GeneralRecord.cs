@@ -2,7 +2,6 @@
 
 namespace DataExtractor
 {
-    [Delimiter(",")]
     public class GeneralRecord
     {
         [Name("eventid")]
@@ -31,8 +30,7 @@ namespace DataExtractor
         public string RegionName { get; set; }
 
         [Name("suicide")]
-        [BooleanTrueValues("1")]
-        [BooleanFalseValues("0")]
+        [TypeConverter(typeof(BooleanConverter))]
         public bool IsSuicide { get; set; }
 
         [Name("gname")]
