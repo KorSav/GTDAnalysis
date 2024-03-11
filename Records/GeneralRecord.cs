@@ -37,9 +37,6 @@ namespace DataExtractor.Records
         [Name("gname")]
         public string GroupName { get; set; }
 
-        [Name("nperps")]
-        public int TerroristsCount { get; set; }
-
         [Name("weaptype1_txt")]
         public string WeaponTypeName { get; set; }
 
