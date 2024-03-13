@@ -15,7 +15,7 @@ namespace DataExtractor.Records
         [Name("gnumber_new")]
         public int GroupCount { get; set; }
 
-        [Name("targtype1_txt")]
+        [Index(27)]
         public string TargetTypeName { get; set; }
     }
 }
