@@ -14,25 +14,25 @@ namespace DataExtractor
     {
         public string ServerName { get; private set; }
         public string DbName { get; private set; }
-        private SqlConnection _connection;
+        public SqlConnection Connection { get; private set; }
 
         public StagingAreaLoader(string serverName, string dbName )
         {
             ServerName = serverName;
             DbName = dbName;
-            _connection = new SqlConnection(
+            Connection = new SqlConnection(
                 $"Data Source={serverName};" +
                 $"Initial Catalog={dbName};" +
                 "Integrated Security=True;" +
                 "TrustServerCertificate=True"
                 );
-            _connection.Open();
+            Connection.Open();
         }
 
         public void Load<T>(List<T> records, string dbTableName )
         {
             var dt = ConvertToDataTable<T>(records);
-            using (SqlBulkCopy bulkCopy = new( _connection)) {
+            using (SqlBulkCopy bulkCopy = new( Connection)) {
                 bulkCopy.DestinationTableName = dbTableName;
                 bulkCopy.WriteToServer(dt);
             }
@@ -59,7 +59,7 @@ namespace DataExtractor
 
         public void Dispose( )
         {
-            _connection.Dispose( );
+            Connection.Dispose( );
         }
     }
 }

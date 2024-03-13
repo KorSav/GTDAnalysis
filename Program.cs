@@ -37,6 +37,13 @@ internal class Program
                 wr = DataSourceReader.ReadWarning(Path.Combine(datasetFolder, file_warning));
                 sal.Load(wr, "Warning");
                 Console.WriteLine("Warning loaded.");
+
+                using SqlCommand cmd = new(
+                    "delete from [General] " +
+                    "where [Month] = 0 or [Day] = 0"
+                    , sal.Connection);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Empty dates deleted.");
             }
         }
         catch ( SqlException ex ) {

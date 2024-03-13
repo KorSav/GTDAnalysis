@@ -12,7 +12,7 @@ namespace DataExtractor
 
         public static List<GeneralRecord> ReadGeneral( string filePath )
         {
-            return Csv.Reader<GeneralRecord>.Read(filePath, ";");
+            return Csv.Reader<GeneralRecord>.Read(filePath, ",");
         }
 
         public static List<PoisoningRecord> ReadPoisoning( string filePath )
