@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataExtractor.Csv
+namespace DataExtractor.FileReaders
 {
-    public static class Reader<T>
+    public static class DelimetedFileReader<T>
     {
         public static List<T> Read(string filePath, string delimeter)
         {

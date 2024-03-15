@@ -1,4 +1,4 @@
-﻿using DataExtractor.Csv;
+﻿using DataExtractor.FileReaders;
 using DataExtractor.Records;
 
 namespace DataExtractor
@@ -7,22 +7,22 @@ namespace DataExtractor
     {
         public static List<WarningRecord> ReadWarning( string filePath )
         {
-            return Csv.Reader<WarningRecord>.Read(filePath, "\t");
+            return DelimetedFileReader<WarningRecord>.Read(filePath, "\t");
         }
 
         public static List<GeneralRecord> ReadGeneral( string filePath )
         {
-            return Csv.Reader<GeneralRecord>.Read(filePath, ",");
+            return DelimetedFileReader<GeneralRecord>.Read(filePath, ",");
         }
 
         public static List<PoisoningRecord> ReadPoisoning( string filePath )
         {
-            return Csv.Reader<PoisoningRecord>.Read(filePath, ";");
+            return DelimetedFileReader<PoisoningRecord>.Read(filePath, ";");
         }
 
         public static List<IncidentRecord> ReadIncident( string filePath )
         {
-            return Xl.Reader.Read(filePath);
+            return ExcelReader.Read(filePath);
         }
 
     }

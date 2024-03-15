@@ -10,16 +10,19 @@ using CsvHelper.Configuration;
 using System.Globalization;
 using OfficeOpenXml;
 
-namespace DataExtractor.Xl
+namespace DataExtractor.FileReaders
 {
-    static class Reader
+    static class ExcelReader
     {
-        public static List<IncidentRecord> Read(string filePath )
+        public static List<IncidentRecord> Read(string filePath)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
-                ReadingExceptionOccurred = context => {
-                    if ( context.Exception is CsvHelper.TypeConversion.TypeConverterException ) {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                ReadingExceptionOccurred = context =>
+                {
+                    if (context.Exception is CsvHelper.TypeConversion.TypeConverterException)
+                    {
                         return false;
                     }
                     return true;
@@ -28,8 +31,9 @@ namespace DataExtractor.Xl
                 HasHeaderRecord = false
             };
             var res = new List<IncidentRecord>();
-            using ( var reader = new CsvReader(
-                new ExcelParser(filePath, configuration: config)) ) {
+            using (var reader = new CsvReader(
+                new ExcelParser(filePath, configuration: config)))
+            {
                 res = reader.GetRecords<IncidentRecord>().ToList();
             }
             return res;
